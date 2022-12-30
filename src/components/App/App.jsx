@@ -7,6 +7,8 @@ import { Audio } from 'react-loader-spinner';
 import css from './App.module.css';
 import Modal from 'components/Modal/Modal';
 
+const API_KEY = '30907588-7c59c046d485207ae743f1a8b';
+
 export function App() {
   const [pictures, setPictures] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -50,7 +52,7 @@ export function App() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://pixabay.com/api/?q=${searchValue}&page=${currentPage}&key=${process.env.REACT_APP_API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
+        `https://pixabay.com/api/?q=${searchValue}&page=${currentPage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
       );
 
       setPictures([...pictures, ...response.data.hits]);
@@ -66,7 +68,7 @@ export function App() {
     }
 
     fetchData();
-  }, [searchValue, currentPage, fetchData]);
+  }, [searchValue, currentPage]);
 
   return (
     <div className={css.App}>
