@@ -66,7 +66,7 @@ export function App() {
     }
 
     fetchData();
-  }, [searchValue, currentPage]);
+  }, [searchValue, currentPage, fetchData]);
 
   return (
     <div className={css.App}>
