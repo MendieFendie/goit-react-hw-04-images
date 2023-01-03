@@ -19,8 +19,8 @@ export function App() {
   const [error, setError] = useState(null);
 
   function formSubmitHandler(data) {
-    if (searchValue !== data.inputValue) {
-      setSearchValue(data.inputValue);
+    if (searchValue !== data) {
+      setSearchValue(data);
       setCurrentPage(1);
       setPictures([]);
     }
@@ -34,6 +34,7 @@ export function App() {
     if (e.target.className === 'Modal_Overlay__yoxbg' || e.code === 'Escape') {
       e.preventDefault();
       setShowModal(!showModal);
+      // setCollapsed(true);
     }
   }
 
@@ -68,7 +69,8 @@ export function App() {
     }
 
     fetchData();
-  }, [searchValue, currentPage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage, searchValue]);
 
   return (
     <div className={css.App}>
@@ -89,7 +91,9 @@ export function App() {
         />
       )}
       {pictures.length > 0 && <Button onLoad={loadMore} />}
-      {showModal && <Modal closeModal={closeModal} imgUrl={imgUrl} />}
+      {showModal && (
+        <Modal closeModal={closeModal} imgUrl={imgUrl} showModal={showModal} />
+      )}
     </div>
   );
 }
