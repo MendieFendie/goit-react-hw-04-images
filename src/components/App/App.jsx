@@ -34,7 +34,6 @@ export function App() {
     if (e.target.className === 'Modal_Overlay__yoxbg' || e.code === 'Escape') {
       e.preventDefault();
       setShowModal(!showModal);
-      // setCollapsed(true);
     }
   }
 
@@ -48,28 +47,26 @@ export function App() {
     }
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `https://pixabay.com/api/?q=${searchValue}&page=${currentPage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
-      );
-
-      setPictures([...pictures, ...response.data.hits]);
-      setLoading(false);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   useEffect(() => {
     if (!searchValue) {
       return;
     }
 
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `https://pixabay.com/api/?q=${searchValue}&page=${currentPage}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=12`
+        );
+
+        setPictures(prev => [...prev, ...response.data.hits]);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, searchValue]);
 
   return (

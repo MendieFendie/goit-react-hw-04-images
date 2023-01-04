@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+import PropTypes from 'prop-types';
 import css from './Searchbar.module.css';
 
 export default function Searchbar(props) {
@@ -38,3 +39,11 @@ export default function Searchbar(props) {
     </header>
   );
 }
+
+Searchbar.propTypes = {
+  props: PropTypes.arrayOf(
+    PropTypes.shape({
+      formSubmitHandler: PropTypes.func.isRequired,
+    })
+  ),
+};
